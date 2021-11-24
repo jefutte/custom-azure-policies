@@ -9,7 +9,7 @@
         },
         {
           "field": "Microsoft.MachineLearningServices/workspaces/computes/computeType",
-          "in": "[parameters('ComputeType')]"
+          "in": "[parameters('computeType')]"
         },
         {
           "not": {
