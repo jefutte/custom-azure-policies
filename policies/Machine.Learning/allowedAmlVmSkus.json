@@ -1,0 +1,47 @@
+{
+  "mode": "all",
+  "policyRule": {
+    "if": {
+      "allOf": [
+        {
+          "equals": "Microsoft.MachineLearningServices/workspaces/computes",
+          "field": "type"
+        },
+        {
+          "field": "Microsoft.MachineLearningServices/workspaces/computes/computeType",
+          "in": "[parameters('ComputeType')]"
+        },
+        {
+          "not": {
+            "field": "Microsoft.MachineLearningServices/workspaces/computes/vmSize",
+            "in": "[parameters('listOfAllowedSKUs')]"
+          }
+        }
+      ]
+    },
+    "then": {
+      "effect": "deny"
+    }
+  },
+  "parameters": {
+    "listOfAllowedSKUs": {
+      "type": "Array",
+      "metadata": {
+        "displayName": "Allowed Size SKUs",
+        "description": "The list of size SKUs that can be specified for virtual machines.",
+        "strongType": "vmSKUs"
+      }
+    },
+    "computeType": {
+      "type": "Array",
+      "metadata": {
+        "displayName": "Target compute types",
+        "description": "The list of compute types that can be targeted. Compute Clusters = AmlCompute, Compute Instances = ComputeInstance"
+      },
+      "allowedValues": [
+        "AmlCompute",
+        "ComputeInstance"
+      ]
+    }
+  }
+}
